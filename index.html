@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Всезнайка — AI-консультант по 1С</title>
+<meta name="description" content="Всезнайка — AI-консультант по 1С: метаданные типовых конфигураций, база знаний ИТС, разбор документов и проводок, первая линия поддержки. Доступ к базе клиента только на чтение.">
+<meta property="og:title" content="Всезнайка — AI-консультант по 1С">
+<meta property="og:description" content="Первая линия поддержки 1С на AI: остатки, документы, проводки, причины расхождений. Read-only доступ, изоляция клиентов, аудит.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+<style>
+:root{
+  --bg:#0b0f18; --bg2:#111827; --card:#151d2b; --line:#233047;
+  --txt:#e7ecf5; --mut:#96a3b8; --acc:#5b8cff; --acc2:#9b6bff; --ok:#41d18b;
+  --r:16px; --mw:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:var(--mw);margin:0 auto;padding:0 22px}
+header{position:sticky;top:0;z-index:50;background:rgba(11,15,24,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:26px;height:64px}
+.logo{font-weight:700;font-size:19px;letter-spacing:.2px;display:flex;align-items:center;gap:9px}
+.logo span{background:linear-gradient(120deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav a.link{color:var(--mut);font-size:14.5px}
+.nav a.link:hover{color:var(--txt);text-decoration:none}
+.nav .spacer{flex:1}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:11px;font-weight:600;font-size:14.5px;border:1px solid var(--line);color:var(--txt);transition:.18s}
+.btn:hover{text-decoration:none;transform:translateY(-1px)}
+.btn-primary{background:linear-gradient(120deg,var(--acc),var(--acc2));border:0;color:#fff}
+.btn-ghost{background:var(--card)}
+section{padding:78px 0;border-bottom:1px solid rgba(35,48,71,.55)}
+.hero{padding:96px 0 84px;background:
+  radial-gradient(900px 420px at 12% -10%,rgba(91,140,255,.20),transparent 60%),
+  radial-gradient(700px 380px at 88% 0%,rgba(155,107,255,.16),transparent 62%)}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ok);border:1px solid rgba(65,209,139,.35);background:rgba(65,209,139,.08);padding:6px 13px;border-radius:999px;margin-bottom:22px}
+h1{font-size:clamp(32px,5.2vw,54px);line-height:1.1;letter-spacing:-.02em;font-weight:800}
+h1 em{font-style:normal;background:linear-gradient(120deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:clamp(16px,2vw,19px);color:var(--mut);max-width:720px;margin-top:20px}
+.cta{display:flex;flex-wrap:wrap;gap:13px;margin-top:32px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:52px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.stat b{display:block;font-size:23px;letter-spacing:-.01em}
+.stat span{font-size:13px;color:var(--mut)}
+h2{font-size:clamp(24px,3.2vw,34px);letter-spacing:-.015em;font-weight:750;margin-bottom:10px}
+.sub{color:var(--mut);max-width:680px;margin-bottom:38px}
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.card h3{font-size:16.5px;margin-bottom:8px;font-weight:700}
+.card p{color:var(--mut);font-size:14.5px}
+.ico{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:19px;background:rgba(91,140,255,.13);border:1px solid rgba(91,140,255,.28);margin-bottom:14px}
+.steps{counter-reset:s;display:grid;gap:14px}
+.step{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px 20px 66px}
+.step:before{counter-increment:s;content:counter(s);position:absolute;left:20px;top:20px;width:30px;height:30px;border-radius:9px;background:linear-gradient(120deg,var(--acc),var(--acc2));color:#fff;font-weight:700;font-size:14px;display:grid;place-items:center}
+.step b{display:block;margin-bottom:4px}
+.step p{color:var(--mut);font-size:14.5px}
+table{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+th,td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);font-weight:600;background:rgba(255,255,255,.02)}
+tr:last-child td{border-bottom:0}
+td.no{color:#e06a6a}
+td.yes{color:var(--ok)}
+.pill{display:inline-block;font-size:12.5px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--mut);margin:3px 5px 0 0}
+.contacts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.c-link{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:17px 19px;color:var(--txt)}
+.c-link:hover{border-color:var(--acc);text-decoration:none}
+.c-link b{display:block;font-size:14.5px}
+.c-link span{font-size:12.5px;color:var(--mut)}
+footer{padding:34px 0;color:var(--mut);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.note{font-size:13px;color:var(--mut);border-left:2px solid var(--acc);padding-left:14px;margin-top:26px}
+@media(max-width:900px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .g3,.g2,.contacts{grid-template-columns:1fr}
+  .nav a.link{display:none}
+  section{padding:58px 0}
+  table{font-size:13.5px}
+  th,td{padding:11px 12px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">🤖 <span>Всезнайка</span></div>
+    <a class="link" href="#what">Что это</a>
+    <a class="link" href="#principles">Принципы</a>
+    <a class="link" href="#how">Как работает</a>
+    <a class="link" href="#tariffs">Тарифы</a>
+    <a class="link" href="#stack">Стек</a>
+    <div class="spacer"></div>
+    <a class="btn btn-primary" href="#contacts">Связаться</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="tag">● Работаю с 1С: КА 2.5 · УНФ · БП · ЗУП · ERP</div>
+    <h1>AI-консультант по 1С,<br>который <em>знает метаданные</em>,<br>а не пересказывает форумы</h1>
+    <p class="lead">
+      Всезнайка отвечает на вопросы пользователей и специалистов 1С: остатки, документы, проводки,
+      причины расхождений и отрицательных остатков. Ответ строится на метаданных конфигурации,
+      базе знаний ИТС и — на тарифах с доступом — на реальных данных вашей базы.
+    </p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#contacts">Обсудить задачу</a>
+      <a class="btn btn-ghost" href="#how">Как это работает →</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b>SLA 1–24 ч</b><span>в зависимости от тарифа</span></div>
+      <div class="stat"><b>read-only</b><span>доступ к базе клиента</span></div>
+      <div class="stat"><b>7 конфигураций</b><span>КА, УТ, БП, ЗУП, ERP, УНФ, ДО</span></div>
+      <div class="stat"><b>2 канала</b><span>Telegram и Max</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="what">
+  <div class="wrap">
+    <h2>Что такое Всезнайка</h2>
+    <p class="sub">Два продукта на одном ядре: первая линия поддержки для сотрудников и консультант для специалистов и компаний.</p>
+    <div class="grid g2">
+      <div class="card">
+        <div class="ico">🎧</div>
+        <h3>Всезнайка: ПерваяЛиния</h3>
+        <p>AI-бот первой линии поддержки 1С. Снимает с людей типовые вопросы, сложное эскалирует на вторую линию. Промт настраивается под конфигурацию и специфику конкретного бизнеса.</p>
+        <div style="margin-top:14px">
+          <span class="pill">остатки на складах</span><span class="pill">разбор документов</span>
+          <span class="pill">поиск причин расхождений</span><span class="pill">пошаговые инструкции</span>
+          <span class="pill">эскалация человеку</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ico">🧠</div>
+        <h3>Всезнайка_1С</h3>
+        <p>Консультант для специалистов 1С: от базовых вопросов по типовым конфигурациям до индивидуальных решений под ключ, с доступом к метаданным и данным базы клиента.</p>
+        <div style="margin-top:14px">
+          <span class="pill">метаданные конфигураций</span><span class="pill">база знаний ИТС</span>
+          <span class="pill">BSL и доработки</span><span class="pill">аналитика данных базы</span>
+          <span class="pill">API и кастомные интеграции</span>
+        </div>
+      </div>
+    </div>
+    <p class="note">Всезнайка не «чат-бот вообще». Это слой знаний поверх вашей конфигурации: он видит структуру метаданных, знает методику ИТС и умеет отличать типовой вопрос от ситуации, которую должен смотреть человек.</p>
+  </div>
+</section>
+
+<section id="principles">
+  <div class="wrap">
+    <h2>Принципы работы</h2>
+    <p class="sub">Восемь правил, по которым построен сервис. Они же — ответ на главный вопрос заказчика: «а с моими данными что будет?»</p>
+    <div class="grid g3">
+      <div class="card"><div class="ico">🔒</div><h3>Изоляция клиентов</h3><p>Каждый клиент — отдельное окружение. Данные разных компаний не пересекаются ни в хранилище, ни в контексте модели.</p></div>
+      <div class="card"><div class="ico">👁️</div><h3>Только чтение</h3><p>Доступ к базе 1С — read-only. Агент не проводит документы, не меняет справочники и не «правит» учёт.</p></div>
+      <div class="card"><div class="ico">🛡️</div><h3>Шифрование</h3><p>Данные в покое — AES-256, при передаче — TLS 1.3. Доступ к базам клиентов — через защищённый туннель.</p></div>
+      <div class="card"><div class="ico">🔑</div><h3>Минимальные привилегии</h3><p>Каждый агент получает ровно те права, которые нужны под его задачу. Ничего «на всякий случай».</p></div>
+      <div class="card"><div class="ico">📋</div><h3>Аудит действий</h3><p>Полное логирование: что спросили, что агент посмотрел в базе, что ответил. Разбор любого ответа восстановим.</p></div>
+      <div class="card"><div class="ico">🕶️</div><h3>Обфускация ПДн</h3><p>Персональные данные маскируются до отправки в модель. В LLM уходит структура задачи, а не ФИО и паспорта.</p></div>
+      <div class="card"><div class="ico">🧭</div><h3>Ответ по источнику</h3><p>Никаких «примерно так». Агент опирается на метаданные, ИТС и данные базы — и говорит, на что именно опирался.</p></div>
+      <div class="card"><div class="ico">↗️</div><h3>Эскалация вместо догадки</h3><p>Если вопрос выходит за границы знаний или прав — передача человеку на вторую линию, а не смелая выдумка.</p></div>
+      <div class="card"><div class="ico">🧩</div><h3>Настройка под клиента</h3><p>Отдельный промт и набор инструментов под конфигурацию, отрасль и нетиповые доработки.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>Как проходит запрос</h2>
+    <p class="sub">Четыре шага от вопроса сотрудника до ответа, который можно проверить.</p>
+    <div class="steps">
+      <div class="step"><b>Вопрос в привычном канале</b><p>Сотрудник пишет в Telegram или Max — без нового интерфейса и обучения.</p></div>
+      <div class="step"><b>Сбор контекста</b><p>Агент поднимает метаданные конфигурации, статьи ИТС и — при наличии прав — реальные данные базы: остатки, документы, движения.</p></div>
+      <div class="step"><b>Ответ с обоснованием</b><p>Пошаговый разбор: что за документ, какие проводки, откуда расхождение, что проверить дальше.</p></div>
+      <div class="step"><b>Эскалация, если надо</b><p>Сложный или нетиповой случай уходит на вторую линию человеку — с уже собранным контекстом, а не с пустого места.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="tariffs">
+  <div class="wrap">
+    <h2>Тарифы</h2>
+    <p class="sub">Три уровня доступа — от справки по типовым конфигурациям до индивидуального агента внутри контура компании.</p>
+    <table>
+      <thead><tr><th>Что входит</th><th>🔵 Базовый</th><th>🟣 Проф</th><th>👑 Корп</th></tr></thead>
+      <tbody>
+        <tr><td>Для кого</td><td>пользователи 1С</td><td>компании со своей базой</td><td>холдинги, крупный бизнес</td></tr>
+        <tr><td>Метаданные типовых конфигураций</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td></tr>
+        <tr><td>База знаний ИТС</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td></tr>
+        <tr><td>Доступ к базе клиента (read-only)</td><td class="no">—</td><td class="yes">✅ ограниченный</td><td class="yes">✅ полный</td></tr>
+        <tr><td>Анализ данных базы</td><td class="no">—</td><td class="yes">✅</td><td class="yes">✅</td></tr>
+        <tr><td>Индивидуальный агент под клиента</td><td class="no">—</td><td class="no">—</td><td class="yes">✅</td></tr>
+        <tr><td>Интеграции</td><td>Telegram, Max</td><td>+ API</td><td>+ кастомные</td></tr>
+        <tr><td>SLA реакции</td><td>24 ч</td><td>4 ч</td><td>1 ч</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Стоимость считается под объём запросов и глубину доступа — напишите, какая конфигурация и сколько пользователей, пришлю расчёт.</p>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <h2>На чём сделано</h2>
+    <p class="sub">Стек сервиса и компетенции, которые за ним стоят.</p>
+    <div class="grid g3">
+      <div class="card"><h3>1С</h3><p>КА 2.5, УНФ, БП, ЗУП, ERP. Метаданные, регистры, проводки, BSL. Обмен и конвертация данных, HTTP-сервисы, OData, COM.</p></div>
+      <div class="card"><h3>Backend</h3><p>Python 3.12, FastAPI, asyncio, Celery. PostgreSQL, Redis, pgvector/Qdrant для базы знаний, SQLAlchemy + Alembic.</p></div>
+      <div class="card"><h3>AI</h3><p>RAG по метаданным и ИТС, LangChain/LlamaIndex, LLM через API. Промт-инжиниринг под задачу клиента, фильтрация вывода.</p></div>
+      <div class="card"><h3>Коннектор 1С</h3><p>HTTP-сервисы (REST), OData, COM-соединение, прямые SQL-запросы к MS SQL / PostgreSQL — выбор под инфраструктуру клиента.</p></div>
+      <div class="card"><h3>Боты</h3><p>Telegram (aiogram 3), Max. Вебхуки, очереди, деградация без потери сообщений.</p></div>
+      <div class="card"><h3>Инфраструктура</h3><p>Docker, CI/CD на GitHub Actions, мониторинг Prometheus + Grafana, логирование. Развёртывание в контуре клиента при требовании.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contacts">
+  <div class="wrap">
+    <h2>Связаться</h2>
+    <p class="sub">Опишите задачу: конфигурация, что болит, сколько пользователей. Отвечу с вариантом решения и оценкой.</p>
+    <div class="contacts">
+      <a class="c-link" href="mailto:aleksey.and.borisov@gmail.com"><span style="font-size:22px">✉️</span><div><b>aleksey.and.borisov@gmail.com</b><span>почта — самый быстрый способ</span></div></a>
+      <a class="c-link" href="https://www.fl.ru/" target="_blank" rel="noopener"><span style="font-size:22px">🧾</span><div><b>FL.ru</b><span>профиль фрилансера · безопасная сделка</span></div></a>
+      <a class="c-link" href="https://hh.ru/" target="_blank" rel="noopener"><span style="font-size:22px">💼</span><div><b>HH.ru</b><span>резюме и опыт</span></div></a>
+    </div>
+    <p class="note">Работаю по договору или через безопасную сделку на бирже. NDA — по запросу. Доступ к базе только на чтение и только после согласования контура.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <div>© <span id="y">2026</span> Всезнайка — AI-консультант по 1С</div>
+    <div>1С · AI-агенты · автоматизация · интеграции</div>
+  </footer>
+</div>
+
+<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+</body>
+</html>
